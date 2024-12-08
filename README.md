@@ -47,6 +47,8 @@ I vyn "Musiker Live" kommer dessa funktioner att finnas. Denna vy ska gå att an
 Funktioner som kanske kan finnas men som är oklar var den ska finnas:
   - Visa QR-kod för sessionen
 
+---
 
+Bild från Figjam med ovanstående information x)
 
 ![image](https://github.com/user-attachments/assets/86e44242-d59d-4454-b05a-ce8c659d6268)
