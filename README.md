@@ -2,7 +2,7 @@
 
 DIREQ: direct_request! Låt publiken avgöra vilken låt ni spelar härnäst!
 
-
+# [Figjam med idéer om funktionalitet, flödesdiagram och user scenarios](https://www.figma.com/board/quZ5O9BUbecfrgayWHqxO9/direq?node-id=2-179&t=45BrxA5xuUB6XvIK-1)
 
 # Funktionalitet
 
