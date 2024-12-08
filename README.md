@@ -47,6 +47,8 @@ I vyn "Musiker Live" kommer dessa funktioner att finnas. Denna vy ska gå att an
   - Lägga till från tidigare önskemål
   - Se historik / statistik från önskemål
 
+En låt består av fälten "Artist" och "Titel" och kan ha en eller flera taggar som kan användas för att kategorisera låtar senare, antingen för publiken när de ska söka på låt eller för musikern för att snabbt kunna bygga en spelordning utifrån kategori/er.
+
 
 ## Oklart ⁉⁉⁉❓❓❓
 Funktioner som kanske kan finnas men som är oklar var den ska finnas:
