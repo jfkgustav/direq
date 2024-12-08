@@ -1,11 +1,14 @@
 # DIREQ
 
-DIREQ: direct_request! Låt publiken avgöra vilken låt ni spelar härnäst!
+DIREQ: direct_request! Låt publiken avgöra vilken låt ni spelar härnäst!🎶🎉✨
 
 # [Figjam med idéer om funktionalitet, flödesdiagram och user scenarios](https://www.figma.com/board/quZ5O9BUbecfrgayWHqxO9/direq?node-id=2-179&t=45BrxA5xuUB6XvIK-1)
 
+🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶
+
 Inspirerat av: [https://www.demoll.se/onskalataranders](https://www.demoll.se/onskalataranders)
 
+🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶
 # Funktionalitet
 
 Applikationen består av 4 huvudsakliga vyer. Dessa kallas:
@@ -16,7 +19,7 @@ Applikationen består av 4 huvudsakliga vyer. Dessa kallas:
 
 Utöver dessa kommer även en vy för att logga in och sätta upp synk med kalkylarket också krävas.
 
-## Publik funktioner:
+## Publik funktioner: 📲
 I vyn "Publik" kommer dessa funktioner att finnas. Vyn ska utvecklas för att kunna fungera på smarta telefoner främst och behöver inte vara anpassad för datorskärmar då den väldigt sällan kommer att visas på dessa.
   - Sök
   - Filter
@@ -26,7 +29,7 @@ I vyn "Publik" kommer dessa funktioner att finnas. Vyn ska utvecklas för att ku
   - Mottagandebekräftelse?
   - Ange namn/bordsnummer
 
-## Musiker Live:
+## Musiker Live: 📲
 I vyn "Musiker Live" kommer dessa funktioner att finnas. Vyn ska utvecklas för att kunna fungera på surfplattor främst men också smarta telefoner. Behöver inte vara anpassad för datorskärmar då den väldigt sällan kommer att visas på dessa.
   - Visa önskemål
   - Sortera önskemål
@@ -36,7 +39,7 @@ I vyn "Musiker Live" kommer dessa funktioner att finnas. Vyn ska utvecklas för 
   - Avsluta session
   - Blockera användare :/
 
-## Musiker redigera
+## Musiker redigera 📲 💻
 I vyn "Musiker Live" kommer dessa funktioner att finnas. Denna vy ska gå att använda med såval surfplatta och smart telefon som dator för att kunna vara anpassningsbar för olika användares vanor.
   - Synka med kalkylarksapplikation
   - Få feedback när tillagda låtar inte följer korrekt format
@@ -45,7 +48,7 @@ I vyn "Musiker Live" kommer dessa funktioner att finnas. Denna vy ska gå att an
   - Se historik / statistik från önskemål
 
 
-## Oklart
+## Oklart ⁉⁉⁉❓❓❓
 Funktioner som kanske kan finnas men som är oklar var den ska finnas:
   - Visa QR-kod för sessionen
 
