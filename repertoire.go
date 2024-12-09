@@ -17,5 +17,10 @@ func ReadRepertoireCSV() []*Song {
 	if unmarshalError := gocsv.UnmarshalFile(file, &songs); unmarshalError != nil {
 		panic(unmarshalError)
 	}
+	for _, song := range songs {
+		if song.Artist == "" {
+			log.Println(MissingArtistErr)
+		}
+	}
 	return songs
 }
