@@ -3,7 +3,7 @@
 DIREQ: direct_request! Låt publiken avgöra vilken låt ni spelar härnäst!🎶🎉✨
 
 # [Figjam med idéer om funktionalitet, flödesdiagram och user scenarios](https://www.figma.com/board/quZ5O9BUbecfrgayWHqxO9/direq?node-id=2-179&t=45BrxA5xuUB6XvIK-1)
-# [Figma design fil med mockups av användargränssnittet](https://www.figma.com/design/Yh4yYD5mQgCwycVn0cGmpz/direq-design?node-id=0-1&t=ZXFgOCBAfx9nv8Wp-1)
+# [Figma design-fil med mockups av användargränssnittet](https://www.figma.com/design/Yh4yYD5mQgCwycVn0cGmpz/direq-design?node-id=0-1&t=ZXFgOCBAfx9nv8Wp-1)
 
 🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶🎶
 
