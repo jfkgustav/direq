@@ -2,6 +2,26 @@ package main
 
 import (
 	"fmt"
+	"net/http"
+
+	"github.com/a-h/templ"
+	"github.com/jfkgustav/direq/view"
+)
+
+func main() {
+	component := view.Hello("John")
+	
+	http.Handle("/", templ.Handler(component))
+
+	fmt.Println("Listening on :3000")
+	http.ListenAndServe(":3000", nil)
+}
+
+/*
+package main
+
+import (
+	"fmt"
 )
 
 func main() {
@@ -10,3 +30,4 @@ func main() {
 		fmt.Printf("%v\n", song)
 	}
 }
+*/
