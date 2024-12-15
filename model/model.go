@@ -1,4 +1,4 @@
-package main
+package model
 
 type Song struct {
 	Status string `csv:"status"`

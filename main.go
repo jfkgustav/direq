@@ -6,6 +6,7 @@ import (
 
 	"github.com/a-h/templ"
 	"github.com/jfkgustav/direq/view"
+	"github.com/jfkgustav/direq/handler"
 )
 
 func main() {
@@ -15,19 +16,9 @@ func main() {
 
 	fmt.Println("Listening on :3000")
 	http.ListenAndServe(":3000", nil)
-}
-
-/*
-package main
-
-import (
-	"fmt"
-)
-
-func main() {
-	songs := ReadRepertoireCSV()
+	songs := handler.ReadRepertoireCSV()
 	for _, song := range songs {
 		fmt.Printf("%v\n", song)
 	}
 }
-*/
+
