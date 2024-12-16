@@ -1,0 +1,28 @@
+package audience
+
+import (
+	"github.com/jfkgustav/direq/model"
+	"github.com/jfkgustav/direq/view"
+	"strconv"
+)
+
+templ Index(songs []*model.Song) {
+	@view.Layout() {
+		<table>
+			<tr>
+				<th>Låt</th>
+				<th>Artist</th>
+				<th>År</th>
+				<th>Taggar</th>
+			</tr>
+			for _, song := range songs {
+				<tr>
+					<td>{ song.Song } </td>
+					<td>{ song.Artist } </td>
+					<td>{ strconv.Itoa(song.Year) } </td>
+					<td>{ song.Tags } </td>
+				</tr>
+			}
+		</table>
+	}
+}
