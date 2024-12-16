@@ -1,9 +1,18 @@
 package model
 
-type Song struct {
+// Song model as it is in base CSV
+type SongPre struct {
 	Status string `csv:"status"`
 	Artist string `csv:"artist"`
 	Song   string `csv:"song"`
 	Year   int    `csv:"year"`
 	Tags   string `csv:"tags"`
+}
+
+type Song struct {
+	Status string 
+	Artist string
+	Song   string
+	Year   int  
+	Tags   []string
 }

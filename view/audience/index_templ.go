@@ -13,7 +13,7 @@ import (
 	"github.com/jfkgustav/direq/view"
 )
 
-func Index(songs []*model.Song) templ.Component {
+func Index(songs []model.Song) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -46,14 +46,14 @@ func Index(songs []*model.Song) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"px-2 flex flex-col space-y-4 w-1/2\">")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container px-2 flex flex-col space-y-4 lg:w-1/2\"><div class=\"rounded-md container px-4 py-1 bg-neutral-100\">Sök...</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for _, song := range songs {
 				var href_address string
 				href_address = "/request-song?song_id=" + song.Song
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container bg-neutral-900 text-white px-2 py-2\"><a href=\"")
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col space-y-2 p-4 rounded-md container bg-neutral-900 text-white\"><a href=\"")
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}

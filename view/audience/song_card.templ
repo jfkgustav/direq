@@ -5,13 +5,18 @@ import (
 	"strconv"
 )
 
-templ SongCard(song *model.Song) {
+// Ska möjligtvis allt (Artist, år, taggar) vara länkar till att få mer av samma?
+templ SongCard(song model.Song) {
 	<div id="song-card-top" class="flex justify-between">
 		<div>{ song.Song }</div>
 		<div>{ strconv.Itoa(song.Year) } </div>
 	</div>
 	<div id="song-card-bottom" class="flex justify-between">
 		<div>{ song.Artist } </div>
-		<div class="bg-indigo-500">{ song.Tags }</div>
+		<div class="flex space-x-2">
+			for _, tag := range song.Tags {
+				<a href="/tag" class="bg-indigo-500 px-2 rounded-md">{ tag }</a>
+			}
+		</div>
 	</div>
 }
