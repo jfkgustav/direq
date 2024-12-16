@@ -1,0 +1,20 @@
+package musician
+
+import (
+	"github.com/jfkgustav/direq/model"
+	"strconv"
+)
+
+templ RequestedSongCard(song model.SongRequest) {
+	<div id="song-card-top" class="flex justify-between">
+		<div class="text-3xl text-bold">{ song.Song.Song }</div>
+		<div>{ strconv.Itoa(song.Song.Year) } </div>
+	</div>
+	<div id="song-card-bottom" class="flex justify-between">
+		<div>{ song.Song.Artist } </div>
+		<div class="bg-indigo-500 px-2 pb-1 rounded-md">
+			<p class="sorter">{ strconv.Itoa(song.TimeInQueue) } min 🕒 </p>
+			<p class="hidden sorter">{ strconv.Itoa(song.NumberOfVotes ) } 🗳</p>
+		</div>
+	</div>
+}

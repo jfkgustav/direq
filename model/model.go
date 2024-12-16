@@ -17,8 +17,8 @@ type Song struct {
 	Tags   []string
 }
 
-type songRequest struct {
-	song 					Song
-	timeInQueue 	int
-	numberOfVotes int
+type SongRequest struct {
+	Song 					Song
+	TimeInQueue 	int
+	NumberOfVotes int
 }

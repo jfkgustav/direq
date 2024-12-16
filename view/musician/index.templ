@@ -1,27 +1,63 @@
 package musician
 
 import (
+	"github.com/jfkgustav/direq/model"
 	"github.com/jfkgustav/direq/view"
-	"strconv"
+	"sort"
 )
 
-templ Index(requstedSongs []model.songRequest) {
+templ Index(requestedSongs []model.SongRequest) {
+	{{
+	sort.Slice(requestedSongs, func(i, j int) bool {
+		return requestedSongs[i].TimeInQueue > requestedSongs[j].TimeInQueue
+	})
+	}}
 	@view.Layout() {
-		<div class="container px-2 flex flex-col space-y-4 lg:w-1/2 text-xl  text-neutral-100">
-			<div class="flex container px-4 justify-between">
-				<div class="p-2 bg-neutral-200 rounded-md text-black">Kö</div>
-				<div class="p-2 bg-neutral-200 rounded-md text-black">Populärt</div>
+		<div class="container px-2 flex flex-col space-y-4 lg:w-1/2 text-xl text-neutral-100">
+			<h1 class="text-center pt-4 text-neutral-100 font-bold text-2xl text-center">
+				Önskade låtar
+			</h1>
+			<div class="flex container px-4 space-x-4 justify-center ">
+				<button id="queueButton" class="w-1/4 text-center outline outline-indigo-400 py-4 !bg-neutral-200 bg-neutral-500 rounded-md text-black">Kö </button>
+				<button id="popButton" class="w-1/4 text-center outline-indigo-400 py-4 rounded-md bg-neutral-500 text-black">Populärt </button>
 			</div>
-			<p class="px-4 !mt-2">{ strconv.Itoa(len(songs)) } låtar</p>
-			for _, song := range songs {
-				{{ 	var href_address string }}
-				{{ 	href_address = "/request-song?song_id=" + song.Song }}
+			for _, request := range requestedSongs {
 				<div class="flex flex-col space-y-2 p-4 rounded-md container bg-neutral-800">
-					<a href={ templ.URL(href_address) }>
-						@SongCard(song)
+					<a>
+						@RequestedSongCard(request)
 					</a>
 				</div>
 			}
 		</div>
+		<script>
+			const sorter = document.querySelectorAll('.sorter');
+			const queueButton = document.getElementById('queueButton');
+			const popularityButton = document.getElementById('popButton');
+
+			queueButton.addEventListener('click', () => {
+					if (!queueButton.classList.contains('outline')) {
+						sorter.forEach(object => {
+							object.classList.toggle('hidden');
+						});
+						queueButton.classList.toggle('outline')
+						popularityButton.classList.toggle('outline')
+						queueButton.classList.toggle('!bg-neutral-200')
+						popularityButton.classList.toggle('!bg-neutral-200')
+    			}
+			});
+
+			popularityButton.addEventListener('click', () => {
+					if (!popularityButton.classList.contains('outline')) {
+						sorter.forEach(object => {
+							object.classList.toggle('hidden');
+						});
+						queueButton.classList.toggle('outline')
+						popularityButton.classList.toggle('outline')
+						queueButton.classList.toggle('!bg-neutral-200')
+						popularityButton.classList.toggle('!bg-neutral-200')
+					}
+			});
+
+		</script>
 	}
 }

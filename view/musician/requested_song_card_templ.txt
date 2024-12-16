@@ -1,0 +1,6 @@
+<div id=\"song-card-top\" class=\"flex justify-between\"><div class=\"text-3xl text-bold\">
+</div><div>
+</div></div><div id=\"song-card-bottom\" class=\"flex justify-between\"><div>
+</div><div class=\"bg-indigo-500 px-2 pb-1 rounded-md\"><p class=\"sorter\">
+ min 🕒 </p><p class=\"hidden sorter\">
+ 🗳</p></div></div>
