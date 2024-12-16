@@ -1,6 +1,6 @@
 templ:
 	@npx tailwindcss -i view/css/input.css -o public/app.css #--watch
-	@~/go/bin/templ generate #--watch --proxy="http://localhost:3000"
+	@~/go/bin/templ generate --watch --proxy="http://localhost:3000" --cmd="go run ." --open-browser=false
 	@go run .
 
 

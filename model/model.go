@@ -16,3 +16,9 @@ type Song struct {
 	Year   int  
 	Tags   []string
 }
+
+type songRequest struct {
+	song 					Song
+	timeInQueue 	int
+	numberOfVotes int
+}

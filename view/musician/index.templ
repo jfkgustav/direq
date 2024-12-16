@@ -1,20 +1,16 @@
-package audience
+package musician
 
 import (
-	"github.com/jfkgustav/direq/model"
 	"github.com/jfkgustav/direq/view"
 	"strconv"
 )
 
-templ Index(songs []model.Song) {
+templ Index(requstedSongs []model.songRequest) {
 	@view.Layout() {
 		<div class="container px-2 flex flex-col space-y-4 lg:w-1/2 text-xl  text-neutral-100">
-			<div class="rounded-md container px-4 py-1 bg-neutral-100 text-neutral-900 ">
-				Sök...  
-			</div>
-			<div class="flex container px-4 !mt-2 justify-between">
-				<u>Filtrera (0) </u>
-				<div class="p-2 bg-neutral-200 rounded-md text-black">Sortera</div>
+			<div class="flex container px-4 justify-between">
+				<div class="p-2 bg-neutral-200 rounded-md text-black">Kö</div>
+				<div class="p-2 bg-neutral-200 rounded-md text-black">Populärt</div>
 			</div>
 			<p class="px-4 !mt-2">{ strconv.Itoa(len(songs)) } låtar</p>
 			for _, song := range songs {

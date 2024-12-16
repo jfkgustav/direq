@@ -11,6 +11,7 @@ Klona repot och kör sedan make:
 ```
 
 Som kommer att bygga tailwind, generera templ-filer och till slut sätta igång go-servern.
+Besök sedan [localhost:7331](localhost:7331) där sidan visas. Om ändringar görs i någon av templ-filerna kommer det att uppdateras så länge servern övervakas.
 
 # [Figjam med idéer om funktionalitet, flödesdiagram och user scenarios](https://www.figma.com/board/quZ5O9BUbecfrgayWHqxO9/direq?node-id=2-179&t=45BrxA5xuUB6XvIK-1)
 # [Figma design-fil med mockups av användargränssnittet](https://www.figma.com/design/Yh4yYD5mQgCwycVn0cGmpz/direq-design?node-id=0-1&t=ZXFgOCBAfx9nv8Wp-1)

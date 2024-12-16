@@ -12,9 +12,12 @@ import (
 
 func main() {
 	songs := handler.ReadRepertoireCSV()
-	component := audience.Index(songs)
+	index := audience.Index(songs)
+	//musiciansView := musician.Index();
+
 	
-	http.Handle("/", templ.Handler(component))
+	http.Handle("/", templ.Handler(index))
+	//http.Handle("/mv", templ.Handler(musiciansView));
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
 	fmt.Println("Listening on :3000")
