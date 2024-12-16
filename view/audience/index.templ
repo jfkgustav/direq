@@ -9,8 +9,12 @@ templ Index(songs []*model.Song) {
 	@view.Layout() {
 		<div class="px-2 flex flex-col space-y-4 w-1/2">
 			for _, song := range songs {
+				{{ 	var href_address string }}
+				{{ 	href_address = "/request-song?song_id=" + song.Song }}
 				<div class="container bg-neutral-900 text-white px-2 py-2">
-					@SongCard(song)
+					<a href={ templ.URL(href_address) }>
+						@SongCard(song)
+					</a>
 				</div>
 			}
 		</div>
