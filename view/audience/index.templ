@@ -3,26 +3,19 @@ package audience
 import (
 	"github.com/jfkgustav/direq/model"
 	"github.com/jfkgustav/direq/view"
-	"strconv"
 )
 
 templ Index(songs []*model.Song) {
 	@view.Layout() {
-		<table>
-			<tr>
-				<th>Låt</th>
-				<th>Artist</th>
-				<th>År</th>
-				<th>Taggar</th>
-			</tr>
+		<div class="px-2">
 			for _, song := range songs {
-				<tr>
-					<td>{ song.Song } </td>
-					<td>{ song.Artist } </td>
-					<td>{ strconv.Itoa(song.Year) } </td>
-					<td>{ song.Tags } </td>
-				</tr>
+				<div class="flex flex-col space-y-4">
+					<div class="container bg-gray-100 px-2 py-2">
+						@SongCard(song)
+					</div>
+					<br/>
+				</div>
 			}
-		</table>
+		</div>
 	}
 }
