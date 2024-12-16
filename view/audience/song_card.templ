@@ -8,14 +8,14 @@ import (
 // Ska möjligtvis allt (Artist, år, taggar) vara länkar till att få mer av samma?
 templ SongCard(song model.Song) {
 	<div id="song-card-top" class="flex justify-between">
-		<div class="text-bold !text-md">{ song.Song }</div>
+		<div class="font-bold !text-base">{ song.Song }</div>
 		<div>{ strconv.Itoa(song.Year) } </div>
 	</div>
 	<div id="song-card-bottom" class="flex justify-between">
 		<div>{ song.Artist } </div>
 		<div class="flex space-x-2">
 			for _, tag := range song.Tags {
-				<a href="/tag" class="text-indigo-400 text-sm">{ tag }</a>
+				<a href="/tag" class="text-indigo-400 text-xs">{ tag }</a>
 			}
 		</div>
 	</div>
