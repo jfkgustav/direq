@@ -3,12 +3,19 @@ package view
 templ Layout() {
 	<!DOCTYPE html>
 	<html lang="en">
-		<body> 
-			<nav>
-				Hem
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<link rel="stylesheet" href="/public/app.css"/>
+		</head>
+		<body>
+			<nav class="font-serif">
+				<p class="text-blue-500">
+					Önska låtar
+				</p>
 			</nav>
-			<br>
-			<main> 
+			<br/>
+			<main>
 				{ children... }
 			</main>
 		</body>

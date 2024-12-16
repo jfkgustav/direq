@@ -13,6 +13,8 @@ func main() {
 	component := view.Hello("John")
 	
 	http.Handle("/", templ.Handler(component))
+	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
+
 
 	fmt.Println("Listening on :3000")
 	http.ListenAndServe(":3000", nil)
