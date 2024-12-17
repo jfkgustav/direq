@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-templ RequestedSongCard(song model.SongRequest) {
+templ RequestedSongCard(song model.SongRequest, sort bool) {
 	<div id="song-card-top" class="flex justify-between">
 		<div class="text-3xl text-bold">{ song.Song.Song }</div>
 		<div>{ strconv.Itoa(song.Song.Year) } </div>
@@ -13,8 +13,11 @@ templ RequestedSongCard(song model.SongRequest) {
 	<div id="song-card-bottom" class="flex justify-between">
 		<div>{ song.Song.Artist } </div>
 		<div class="bg-indigo-500 px-2 pb-1 rounded-md">
-			<p class="sorter">{ strconv.Itoa(song.TimeInQueue) } min 🕒 </p>
-			<p class="hidden sorter">{ strconv.Itoa(song.NumberOfVotes ) } 🗳</p>
+			if sort {
+				<p>{ strconv.Itoa(song.NumberOfVotes ) } 🗳 </p>
+			} else {
+				<p>{ strconv.Itoa(song.TimeInQueue) } min 🕒 </p>
+			}
 		</div>
 	</div>
 }

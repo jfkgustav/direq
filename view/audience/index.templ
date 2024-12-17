@@ -3,10 +3,11 @@ package audience
 import (
 	"github.com/jfkgustav/direq/model"
 	"github.com/jfkgustav/direq/view"
+	"slices"
 	"strconv"
 )
 
-templ Index(songs []model.Song) {
+templ Index(songs []model.Song, tags []string) {
 	@view.Layout() {
 		<div class="container px-2 flex flex-col space-y-2 lg:w-1/2 text-neutral-100">
 			<h1 class="text-center pt-4 text-neutral-100 font-bold text-2xl text-center">
@@ -16,19 +17,50 @@ templ Index(songs []model.Song) {
 				Sök...  
 			</div>
 			<div class="flex container px-4 !mt-2 justify-between">
-				<u>Filtrera (0) </u>
+				<u>Filtrera ({ strconv.Itoa(len(tags)) })</u>
 				<div class="p-2 bg-neutral-200 rounded-md text-black">Sortera</div>
+			</div>
+			<div>
+				@filter(getTags(songs))
 			</div>
 			<p class="px-4 !mt-2">{ strconv.Itoa(len(songs)) } låtar</p>
 			for _, song := range songs {
-				{{ 	var href_address string }}
-				{{ 	href_address = "/request-song?song_id=" + song.Song }}
-				<div class="flex flex-col p-2 rounded-md container bg-neutral-800 text-sm">
-					<a href={ templ.URL(href_address) }>
-						@SongCard(song)
-					</a>
-				</div>
+				for _, tag := range song.Tags {
+					if len(tags) == 0 || slices.Contains(tags, tag) {
+						{{ href_address := "/request-song?song_id=" + song.Song }}
+						<div class="flex flex-col p-2 rounded-md container bg-neutral-800 text-sm">
+							<a href={ templ.URL(href_address) }>
+								@SongCard(song)
+							</a>
+						</div>
+					}
+				}
 			}
 		</div>
 	}
+}
+
+func getTags(songs []model.Song) []string {
+	var tags []string
+	for _, song := range songs {
+		for _, tag := range song.Tags {
+			if !slices.Contains(tags, tag) {
+				tags = append(tags, tag)
+			}
+		}
+	}
+	return tags
+}
+
+templ filter(tags []string) {
+	<form action="/">
+		for _, tag := range tags {
+			<input type="checkbox" id={ tag } name="tags" value={ tag }/>
+			<label for={ tag }>{ tag } </label>
+		}
+		<input type="submit" value="Filtrera"/>
+	</form>
+}
+
+templ decade() {
 }

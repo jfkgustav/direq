@@ -14,7 +14,7 @@ import (
 	"sort"
 )
 
-func Index(requestedSongs []model.SongRequest) templ.Component {
+func Index(requestedSongs []model.SongRequest, pop bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -36,9 +36,23 @@ func Index(requestedSongs []model.SongRequest) templ.Component {
 		}
 		ctx = templ.ClearChildren(ctx)
 
-		sort.Slice(requestedSongs, func(i, j int) bool {
-			return requestedSongs[i].TimeInQueue > requestedSongs[j].TimeInQueue
-		})
+		button_base := "w-1/4 text-center outline-indigo-400 py-4 rounded-md text-black"
+		var queue_button string
+		var pop_button string
+		if pop {
+			sort.Slice(requestedSongs, func(i, j int) bool {
+				return requestedSongs[i].NumberOfVotes > requestedSongs[j].NumberOfVotes
+			})
+			pop_button = "outline " + "bg-neutral-200 " + button_base
+			queue_button = "bg-neutral-500 " + button_base
+
+		} else {
+			sort.Slice(requestedSongs, func(i, j int) bool {
+				return requestedSongs[i].TimeInQueue > requestedSongs[j].TimeInQueue
+			})
+			queue_button = "outline " + "bg-neutral-200 " + button_base
+			pop_button = "bg-neutral-500 " + button_base
+		}
 		templ_7745c5c3_Var2 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -51,7 +65,51 @@ func Index(requestedSongs []model.SongRequest) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container px-2 flex flex-col space-y-4 lg:w-1/2 text-xl text-neutral-100\"><h1 class=\"text-center pt-4 text-neutral-100 font-bold text-2xl text-center\">Önskade låtar</h1><div class=\"flex container px-4 space-x-4 justify-center \"><button id=\"queueButton\" class=\"w-1/4 text-center outline outline-indigo-400 py-4 !bg-neutral-200 bg-neutral-500 rounded-md text-black\">Kö </button> <button id=\"popButton\" class=\"w-1/4 text-center outline-indigo-400 py-4 rounded-md bg-neutral-500 text-black\">Populärt </button></div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container px-2 flex flex-col space-y-4 lg:w-1/2 text-xl text-neutral-100\"><h1 class=\"text-center pt-4 text-neutral-100 font-bold text-2xl text-center\">Önskade låtar</h1><div class=\"flex container px-4 space-x-4 justify-center\">")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var3 = []any{queue_button}
+			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var3...)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"/mv?sort=q\" id=\"queueButton\" class=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 string
+			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var3).String())
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/musician/index.templ`, Line: 1, Col: 0}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Kö </a> ")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var5 = []any{pop_button}
+			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var5...)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a href=\"/mv?sort=pop\" id=\"popButton\" class=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var5).String())
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/musician/index.templ`, Line: 1, Col: 0}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">Populärt </a></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -60,7 +118,7 @@ func Index(requestedSongs []model.SongRequest) templ.Component {
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				templ_7745c5c3_Err = RequestedSongCard(request).Render(ctx, templ_7745c5c3_Buffer)
+				templ_7745c5c3_Err = RequestedSongCard(request, pop).Render(ctx, templ_7745c5c3_Buffer)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -69,7 +127,7 @@ func Index(requestedSongs []model.SongRequest) templ.Component {
 					return templ_7745c5c3_Err
 				}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><script>\n\t\t\tconst sorter = document.querySelectorAll('.sorter');\n\t\t\tconst queueButton = document.getElementById('queueButton');\n\t\t\tconst popularityButton = document.getElementById('popButton');\n\n\t\t\tqueueButton.addEventListener('click', () => {\n\t\t\t\t\tif (!queueButton.classList.contains('outline')) {\n\t\t\t\t\t\tsorter.forEach(object => {\n\t\t\t\t\t\t\tobject.classList.toggle('hidden');\n\t\t\t\t\t\t});\n\t\t\t\t\t\tqueueButton.classList.toggle('outline')\n\t\t\t\t\t\tpopularityButton.classList.toggle('outline')\n\t\t\t\t\t\tqueueButton.classList.toggle('!bg-neutral-200')\n\t\t\t\t\t\tpopularityButton.classList.toggle('!bg-neutral-200')\n    \t\t\t}\n\t\t\t});\n\n\t\t\tpopularityButton.addEventListener('click', () => {\n\t\t\t\t\tif (!popularityButton.classList.contains('outline')) {\n\t\t\t\t\t\tsorter.forEach(object => {\n\t\t\t\t\t\t\tobject.classList.toggle('hidden');\n\t\t\t\t\t\t});\n\t\t\t\t\t\tqueueButton.classList.toggle('outline')\n\t\t\t\t\t\tpopularityButton.classList.toggle('outline')\n\t\t\t\t\t\tqueueButton.classList.toggle('!bg-neutral-200')\n\t\t\t\t\t\tpopularityButton.classList.toggle('!bg-neutral-200')\n\t\t\t\t\t}\n\t\t\t});\n\n\t\t</script>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
