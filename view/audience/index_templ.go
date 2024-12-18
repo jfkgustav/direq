@@ -15,7 +15,7 @@ import (
 	"strconv"
 )
 
-func Index(songs []model.Song, tags []string) templ.Component {
+func Index(songs []model.Song, tags []string, decade int, showFilter bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -36,6 +36,16 @@ func Index(songs []model.Song, tags []string) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		songs = getSongsFromDecade(songs, decade)
+		decadeFilter := 0
+		if decade != 0 {
+			decadeFilter = 1
+		}
+		var shownSongs []string
+		isHidden := "hidden"
+		if showFilter {
+			isHidden = ""
+		}
 		templ_7745c5c3_Var2 := templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 			templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 			templ_7745c5c3_Buffer, templ_7745c5c3_IsBuffer := templruntime.GetBuffer(templ_7745c5c3_W)
@@ -48,20 +58,42 @@ func Index(songs []model.Song, tags []string) templ.Component {
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container px-2 flex flex-col space-y-2 lg:w-1/2 text-neutral-100\"><h1 class=\"text-center pt-4 text-neutral-100 font-bold text-2xl text-center\">Önska låtar</h1><div class=\"rounded-md container px-4 py-1 bg-neutral-100 text-neutral-900 \">Sök...  </div><div class=\"flex container px-4 !mt-2 justify-between\"><u>Filtrera (")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container px-2 flex flex-col space-y-2 lg:w-1/2 text-neutral-100\"><h1 class=\"text-center pt-4 text-neutral-100 font-bold text-2xl text-center\">Önska låtar</h1><div class=\"rounded-md container px-4 py-1 bg-neutral-100 text-neutral-900 \">Sök...  </div><div class=\"flex container px-4 !mt-2 justify-between\"><button id=\"filterButton\" class=\"underline\">Filtrera (")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var3 string
-			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(len(tags)))
+			templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(len(tags) + decadeFilter))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 20, Col: 42}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 31, Col: 98}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(")</u><div class=\"p-2 bg-neutral-200 rounded-md text-black\">Sortera</div></div><div>")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(")</button><div class=\"p-2 bg-neutral-200 rounded-md text-black\">Sortera</div></div>")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var4 = []any{isHidden + " bg-neutral-800 container p-4"}
+			templ_7745c5c3_Err = templ.RenderCSSItems(ctx, templ_7745c5c3_Buffer, templ_7745c5c3_Var4...)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"filter\" class=\"")
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			var templ_7745c5c3_Var5 string
+			templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(templ.CSSClasses(templ_7745c5c3_Var4).String())
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 1, Col: 0}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -73,12 +105,12 @@ func Index(songs []model.Song, tags []string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var4 string
-			templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(len(songs)))
+			var templ_7745c5c3_Var6 string
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(len(songs)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 26, Col: 51}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 37, Col: 51}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -88,14 +120,15 @@ func Index(songs []model.Song, tags []string) templ.Component {
 			}
 			for _, song := range songs {
 				for _, tag := range song.Tags {
-					if len(tags) == 0 || slices.Contains(tags, tag) {
+					if !slices.Contains(shownSongs, song.Song) && (len(tags) == 0 || slices.Contains(tags, tag)) {
+						shownSongs = append(shownSongs, song.Song)
 						href_address := "/request-song?song_id=" + song.Song
 						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col p-2 rounded-md container bg-neutral-800 text-sm\"><a href=\"")
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
-						var templ_7745c5c3_Var5 templ.SafeURL = templ.URL(href_address)
-						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var5)))
+						var templ_7745c5c3_Var7 templ.SafeURL = templ.URL(href_address)
+						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var7)))
 						if templ_7745c5c3_Err != nil {
 							return templ_7745c5c3_Err
 						}
@@ -124,6 +157,10 @@ func Index(songs []model.Song, tags []string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script> \n\t\tconst filterButton = document.getElementById('filterButton');\n \t \tconst filterDiv = document.getElementById('filter');\n\t\tfilterButton.addEventListener('click', () => {\n\t\t\tfilterDiv.classList.toggle('hidden');\n\t\t});\n  </script>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		return templ_7745c5c3_Err
 	})
 }
@@ -138,6 +175,20 @@ func getTags(songs []model.Song) []string {
 		}
 	}
 	return tags
+}
+
+func getSongsFromDecade(songs []model.Song, decade int) []model.Song {
+	if decade == 0 {
+		return songs
+	}
+	var result []model.Song
+	yearMax := decade + 10
+	for _, song := range songs {
+		if song.Year >= decade && song.Year < yearMax {
+			result = append(result, song)
+		}
+	}
+	return result
 }
 
 func filter(tags []string) templ.Component {
@@ -156,26 +207,34 @@ func filter(tags []string) templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var6 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var6 == nil {
-			templ_7745c5c3_Var6 = templ.NopComponent
+		templ_7745c5c3_Var8 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var8 == nil {
+			templ_7745c5c3_Var8 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form action=\"/\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form action=\"/\" class=\"flex flex-col space-y-3\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = decade().Render(ctx, templ_7745c5c3_Buffer)
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-wrap container justify-between space-y-2\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		for _, tag := range tags {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"checkbox\" id=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-1/3 lg:w-1/6 self-center\"><input class=\"hidden\" type=\"checkbox\" id=\"")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var7 string
-			templ_7745c5c3_Var7, templ_7745c5c3_Err = templ.JoinStringErrs(tag)
+			var templ_7745c5c3_Var9 string
+			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(tag)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 58, Col: 34}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 95, Col: 51}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var7))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -183,25 +242,25 @@ func filter(tags []string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var8 string
-			templ_7745c5c3_Var8, templ_7745c5c3_Err = templ.JoinStringErrs(tag)
+			var templ_7745c5c3_Var10 string
+			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(tag)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 58, Col: 60}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 95, Col: 77}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var8))
-			if templ_7745c5c3_Err != nil {
-				return templ_7745c5c3_Err
-			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"> <label for=\"")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var9 string
-			templ_7745c5c3_Var9, templ_7745c5c3_Err = templ.JoinStringErrs(tag)
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"> <label class=\"p-2 bg-indigo-200 rounded-md text-neutral-900\" for=\"")
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 59, Col: 19}
+				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var9))
+			var templ_7745c5c3_Var11 string
+			templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(tag)
+			if templ_7745c5c3_Err != nil {
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 96, Col: 75}
+			}
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -209,21 +268,21 @@ func filter(tags []string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			var templ_7745c5c3_Var10 string
-			templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(tag)
+			var templ_7745c5c3_Var12 string
+			templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(tag)
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 59, Col: 27}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 96, Col: 83}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label> ")
+			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label></div>")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<input type=\"submit\" value=\"Filtrera\"></form>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"flex justify-between\"><input type=\"submit\" value=\"Filtrera\" class=\"p-2 bg-neutral-200 text-neutral-900 rounded-sm\"> <a href=\"/?clear=clear\" class=\"p-2 text-red-400 rounded-sm\">Rensa filter </a></div></form>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -247,11 +306,15 @@ func decade() templ.Component {
 			}()
 		}
 		ctx = templ.InitializeContext(ctx)
-		templ_7745c5c3_Var11 := templ.GetChildren(ctx)
-		if templ_7745c5c3_Var11 == nil {
-			templ_7745c5c3_Var11 = templ.NopComponent
+		templ_7745c5c3_Var13 := templ.GetChildren(ctx)
+		if templ_7745c5c3_Var13 == nil {
+			templ_7745c5c3_Var13 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex space-x-4 align-center\"><select name=\"decade\" id=\"decade\" class=\"text-neutral-900 p-2 rounded-sm\"><option value=\"decade\">Årtionde</option> <option value=\"1950\">50-tal</option> <option value=\"1960\">60-tal</option> <option value=\"1970\">70-tal</option> <option value=\"1980\">80-tal</option> <option value=\"1990\">90-tal</option> <option value=\"2000\">00-tal</option> <option value=\"2010\">10-tal</option> <option value=\"2020\">20-tal</option></select></div>")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
 		return templ_7745c5c3_Err
 	})
 }
