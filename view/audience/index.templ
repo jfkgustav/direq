@@ -21,9 +21,9 @@ if showFilter {
 	}}
 	@view.Layout() {
 		<div class="container px-2 flex flex-col space-y-2 lg:w-1/2 text-neutral-100">
-			<h1 class="text-center pt-4 text-neutral-100 font-bold text-2xl text-center">
+			<a href="/" class="text-center pt-4 text-neutral-100 font-bold text-2xl text-center">
 				Önska låtar
-			</h1>
+			</a>
 			<div class="rounded-md container px-4 py-1 bg-neutral-100 text-neutral-900 ">
 				Sök...  
 			</div>
@@ -32,7 +32,7 @@ if showFilter {
 				<div class="p-2 bg-neutral-200 rounded-md text-black">Sortera</div>
 			</div>
 			<div id="filter" class={ isHidden + " bg-neutral-800 container p-4" }>
-				@filter(getTags(songs))
+				@filter(getTags(songs), tags)
 			</div>
 			<p class="px-4 !mt-2">{ strconv.Itoa(len(songs)) } låtar</p>
 			for _, song := range songs {
@@ -86,14 +86,14 @@ func getSongsFromDecade(songs []model.Song, decade int) []model.Song {
 	return result
 }
 
-templ filter(tags []string) {
+templ filter(tags []string, checkedTags []string) {
 	<form action="/" class="flex flex-col space-y-3">
 		@decade()
 		<div class="flex flex-wrap container justify-between space-y-2">
 			for _, tag := range tags {
 				<div class="w-1/3 lg:w-1/6 self-center">
-					<input class="hidden" type="checkbox" id={ tag } name="tags" value={ tag }/>
-					<label class="p-2 bg-indigo-200 rounded-md text-neutral-900" for={ tag }>{ tag } </label>
+					<input checked?={ slices.Contains(checkedTags, tag) } type="checkbox" id={ tag } name="tags" value={ tag }/>
+					<label for={ tag }>{ tag } </label>
 				</div>
 			}
 		</div>
