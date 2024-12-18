@@ -10,13 +10,15 @@
 </div>
 <script> \n\t\tconst filterButton = document.getElementById('filterButton');\n \t \tconst filterDiv = document.getElementById('filter');\n\t\tfilterButton.addEventListener('click', () => {\n\t\t\tfilterDiv.classList.toggle('hidden');\n\t\t});\n  </script>
 <form action=\"/\" class=\"flex flex-col space-y-3\">
-<div class=\"flex flex-wrap container justify-between space-y-2\">
-<div class=\"w-1/3 lg:w-1/6 self-center\"><input
+<div class=\"flex flex-wrap container justify-between \">
+<div class=\"w-1/3 lg:w-1/6 self-center mt-2\">
+</div>
+</div><div class=\"flex justify-between\"><input type=\"submit\" value=\"Filtrera\" class=\"p-2 bg-neutral-300 text-neutral-900 rounded-sm\"> <a href=\"/?clear=clear\" class=\"p-2 text-red-400 rounded-sm\">Rensa filter </a></div></form>
+<div class=\"tagDiv flex space-x-1 w-3/4 rounded-md bg-neutral-200 text-neutral-900 py-1 px-2\"><input class=\"tags\" hidden
  checked
  type=\"checkbox\" id=\"
 \" name=\"tags\" value=\"
 \"> <label for=\"
 \">
-</label></div>
-</div><div class=\"flex justify-between\"><input type=\"submit\" value=\"Filtrera\" class=\"p-2 bg-neutral-200 text-neutral-900 rounded-sm\"> <a href=\"/?clear=clear\" class=\"p-2 text-red-400 rounded-sm\">Rensa filter </a></div></form>
+</label><p class=\"removeX hidden\">X</p></div><script> \n\t\tconst tagObjects = document.querySelectorAll('.tags')\n\t\tconst\ttagDiv = document.querySelectorAll('.tagDiv')\n\t\tconst removeX = document.querySelectorAll('.removeX')\n\t\ttagObjects.forEach((tag, index) => {\n\t\t\ttag.addEventListener('change', () => {\n\t\t\t\ttagDiv[index].classList.toggle('!bg-neutral-400');\n\t\t\t\ttagDiv[index].classList.toggle('border-2');\n\t\t\t\ttagDiv[index].classList.toggle('border-neutral-100');\n\t\t\t\tremoveX[index].classList.toggle('hidden');\n\t\t\t});\n\t\t});\n  </script>
 <div class=\"flex space-x-4 align-center\"><select name=\"decade\" id=\"decade\" class=\"text-neutral-900 p-2 rounded-sm\"><option value=\"decade\">Årtionde</option> <option value=\"1950\">50-tal</option> <option value=\"1960\">60-tal</option> <option value=\"1970\">70-tal</option> <option value=\"1980\">80-tal</option> <option value=\"1990\">90-tal</option> <option value=\"2000\">00-tal</option> <option value=\"2010\">10-tal</option> <option value=\"2020\">20-tal</option></select></div>
