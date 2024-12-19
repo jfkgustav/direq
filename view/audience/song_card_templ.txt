@@ -1,7 +1,0 @@
-<div id=\"song-card-top\" class=\"flex justify-between\"><div class=\"font-bold !text-base\">
-</div><div>
-</div></div><div id=\"song-card-bottom\" class=\"flex justify-between\"><div>
-</div><div class=\"flex space-x-2\">
-<a href=\"/tag\" class=\"text-indigo-400 text-xs\">
-</a>
-</div></div>
