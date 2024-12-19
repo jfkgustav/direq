@@ -1,0 +1,38 @@
+package session
+
+import (
+	"github.com/jfkgustav/direq/view"
+	"github.com/jfkgustav/direq/view/backstage"
+	"strings"
+	"time"
+)
+
+templ NewSession() {
+	{{ today := time.Now() }}
+	@view.Layout() {
+		@backstage.Backstage() {
+			<div class="flex flex-col space-y-8 w-3/4 text-neutral-900 p-4 bg-neutral-200 ">
+				<div class="flex justify-between">
+					<h1 class="font-bold">Skapa session </h1>
+					<a href="/backstage" class="font-bold">X </a>
+				</div>
+				<div class="flex justify-between">
+					<h1>Repertoar </h1>
+					<select name="decade" id="decade" class="text-neutral-900 outline p-2 rounded-sm">
+						<option value="full">Trio</option>
+						<option value="decade">Duo</option>
+						<option value="decade">Svenskt</option>
+					</select>
+				</div>
+				<div class="flex justify-between">
+					<h1>Datum </h1>
+					<h1>Idag ({ strings.Split(today.String(), " ")[0] }) </h1>
+				</div>
+				<div class="flex justify-between">
+					<a href="/backstage" class="rounded-md bg-red-600 text-neutral-100 w-min p-2">Avbryt </a>
+					<a href="/create-session" class="rounded-md !bg-green-600 text-neutral-100 w-min p-2">Skapa </a>
+				</div>
+			</div>
+		}
+	}
+}

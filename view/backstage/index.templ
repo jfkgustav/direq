@@ -5,44 +5,15 @@ import "github.com/jfkgustav/direq/view"
 templ Index() {
 	/* Kolla om det finns uppdateringar i drive, om det gör det, fråga om man vill uppdatera */
 	@view.Layout() {
-		<div class="container flex flex-col space-y-12 py-10 h-screen">
-			<div class="text-center">
-				<h1 class="text-3xl font-bold text-neutral-100">direq</h1>
-				<h2 class="text-xl text-neutral-100">backstage</h2>
+		@Backstage() {
+			<div class="grid grid-col-1 gap-y-8 text-neutral-100 text-center text-xl">
+				<a href="/new-session">Skapa session </a>
+				<a href="/sync">Synka med drive</a>
+				<a href="/add-songs-manual">Lägg till låtar manuellt</a>
+				<a href="/history">Historik </a>
+				<a href="/qr">Visa QR </a>
+				<a href="/settings">Inställningar </a>
 			</div>
-			<div class="grid grid-col-1 gap-y-8 text-neutral-100 text-center">
-				<a href="/new-session" class="text-xl">Skapa session </a>
-				<a href="/sync" class="text-xl">Synka med drive</a>
-				<a href="/add-songs-manual" class="text-xl">Lägg till låtar manuellt</a>
-				<a href="/history" class="text-xl">Historik </a>
-				<a href="/settings" class="text-xl">Inställningar </a>
-			</div>
-		</div>
-	}
-}
-
-// Nedanstående kommer att flyttar till egna filer
-templ CreateSession() {
-	@view.Layout() {
-		<div class="container flex flex-col space-y-12 py-10 h-screen">
-			<div class="text-center">
-				<h1 class="text-3xl font-bold text-neutral-100">direq</h1>
-				<h2 class="text-xl text-neutral-100">backstage</h2>
-			</div>
-			<div class="grid grid-col-1 gap-y-4 text-neutral-100">
-				<div class="flex space-between">
-					<h1>Skapa session </h1>
-					<a href="/backstage">X </a>
-				</div>
-				<div class="flex space-between">
-					<h1>Repertoar </h1>
-					<select name="decade" id="decade" class="text-neutral-900 p-2 rounded-sm">
-						<option value="full">Full repertoar</option>
-						<option value="decade">Årtionde</option>
-						<option value="decade">Årtionde</option>
-					</select>
-				</div>
-			</div>
-		</div>
+		}
 	}
 }

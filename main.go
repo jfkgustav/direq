@@ -8,9 +8,9 @@ import (
 	"github.com/jfkgustav/direq/handler"
 	"github.com/jfkgustav/direq/model"
 	"github.com/jfkgustav/direq/view/audience"
-	"github.com/jfkgustav/direq/view/musician"
 	"github.com/jfkgustav/direq/view/backstage"
-	"github.com/a-h/templ"	
+	"github.com/jfkgustav/direq/view/backstage/session"
+	"github.com/jfkgustav/direq/view/musician"
 )
 
 func main() {
@@ -27,6 +27,14 @@ func main() {
 		musician.Index(requestedSongs, sort == "pop").Render(r.Context(), w)
 	})
 
+	http.HandleFunc("/backstage", func(w http.ResponseWriter, r *http.Request) {
+		backstage.Index().Render(r.Context(), w)
+	})
+
+	http.HandleFunc("/new-session", func(w http.ResponseWriter, r *http.Request) {
+		session.NewSession().Render(r.Context(), w)
+	})
+
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		showFilter := false
 		tags := r.URL.Query()["tags"]
@@ -41,9 +49,10 @@ func main() {
 		if len(tags) != 0 || decade != 0 || clear == "clear" {
 			showFilter = true
 		}
+		sort := r.URL.Query().Get("sort")
 		// låtar = filter_funktion(filter_struct)
 		filtered_songs := handler.FilterSongs(tags, decade)
-		audience.Index(filtered_songs, tags, decade, showFilter).Render(r.Context(), w)
+		audience.Index(filtered_songs, tags, decade, showFilter, sort).Render(r.Context(), w)
 	})
 
 	http.HandleFunc("/request-song", func(w http.ResponseWriter, r *http.Request) {
@@ -59,8 +68,7 @@ func main() {
 		http.Redirect(w, r, "/", http.StatusPermanentRedirect)
 	})
 
-	backstage := backstage.Index()
-	http.Handle("/backstage", templ.Handler(backstage))
+
 
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))

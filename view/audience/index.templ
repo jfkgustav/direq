@@ -8,31 +8,34 @@ import (
 	"strconv"
 )
 
-templ Index(filtered_songs []model.Song, tags []string, decade int, showFilter bool) {
+templ Index(filtered_songs []model.Song, filters []string, decade int, showFilter bool, sortMethod string) {
 	{{
 		decadeFilter := 0
 		if decade != 0 {
 			decadeFilter = 1
 		}
-		isHidden := "hidden"
+		filterShowStatus := "hidden"
 		if showFilter {
-			isHidden = ""
+			filterShowStatus = ""
 		}
 	}}
 	@view.Layout() {
-		<div class="container px-2 flex flex-col space-y-2 lg:w-1/2 text-neutral-100">
+		<div class="container px-2 flex h-full flex-col space-y-2 lg:w-1/2 text-neutral-100 !m-0">
 			<a href="/" class="text-center pt-4 text-neutral-100 font-bold text-2xl text-center">
 				Önska låtar
 			</a>
 			<div class="rounded-md container px-4 py-1 bg-neutral-100 text-neutral-900 ">
 				Sök...  
 			</div>
-			<div class="flex container px-4 !mt-2 justify-between">
-				<button id="filterButton" class="underline">Filtrera ({ strconv.Itoa(len(tags) + decadeFilter) })</button>
-				<div class="p-2 bg-neutral-200 rounded-md text-black">Sortera</div>
+			<div id="filter-sort-div" class="flex w-1/2 !mt-2 ">
+				<button id="filterButton" class="underline px-2 rounded-t-md">Filtrera ({ strconv.Itoa(len(filters) + decadeFilter) })</button>
+				<button id="sortButton" class="p-2 bg-neutral-200 rounded-md text-black">Sortera ↕️</button>
 			</div>
-			<div id="filter" class={ isHidden + " bg-neutral-800 container p-4" }>
-				@filter(handler.Tags, tags)
+			<div id="filter" class={ filterShowStatus + " bg-neutral-800 container rounded-b-md !m-0 pt-6 p-4" }>
+				@filter(handler.Tags, filters)
+			</div>
+			<div id="sort" class="bg-neutral-200 hidden container !overflow-y-scroll !h-56 rounded-b-md !m-0 py-2 px-4">
+				@sort(sortMethod)
 			</div>
 			<p class="px-4 !mt-2">{ strconv.Itoa(len(filtered_songs)) } låtar</p>
 			for _, song := range filtered_songs {
@@ -45,13 +48,34 @@ templ Index(filtered_songs []model.Song, tags []string, decade int, showFilter b
 					</a>
 				</div>
 			}
+			<a class="text-neutral-100 !mt-48" href="/mv">mv</a>
+			<a class="text-neutral-100" href="/backstage">backstage</a>
 		</div>
 	}
 	<script> 
 		const filterButton = document.getElementById('filterButton');
  	 	const filterDiv = document.getElementById('filter');
+ 	 	const filterSortDiv = document.getElementById('filter-sort-div');
 		filterButton.addEventListener('click', () => {
 			filterDiv.classList.toggle('hidden');
+			filterButton.classList.toggle('bg-neutral-800')
+ 			if (!sortDiv.classList.contains('hidden')) {
+				sortDiv.classList.toggle('hidden');
+				sortButton.classList.toggle('rounded-md')
+				sortButton.classList.toggle('rounded-t-md')
+			}
+		});
+		const sortButton = document.getElementById('sortButton');
+ 	 	const sortDiv = document.getElementById('sort');
+ 	 	const sortSortDiv = document.getElementById('filter-sort-div');
+		sortButton.addEventListener('click', () => {
+			sortDiv.classList.toggle('hidden');
+			sortButton.classList.toggle('rounded-md')
+			sortButton.classList.toggle('rounded-t-md')
+ 			if (!filterDiv.classList.contains('hidden')) {
+				filterDiv.classList.toggle('hidden');
+				filterButton.classList.toggle('bg-neutral-800')
+			}
 		});
   </script>
 }
@@ -114,3 +138,15 @@ templ decade() {
 	</div>
 }
 
+templ sort(sortMethod string) {
+	<div class="flex flex-col text-neutral-900 space-y-2">
+		<a class="flex border-b border-neutral-500 py-1" href="/?sort=YearAsc">År stigande <p class="ml-2" hidden?={ !(sortMethod =="" || sortMethod=="YearAsc") }>✔️ </p></a>
+		<a class="flex border-b border-neutral-500 py-1" href="/?sort=YearDec">År fallade <p class="ml-2" hidden?={ !(sortMethod=="YearDec") }>✔️</p></a>
+		<a class="flex border-b border-neutral-500 py-1" href="/?sort=ArtistAZ">Artist A - Ö <p class="ml-2" hidden?={ !(sortMethod=="ArtistAZ") }>✔️</p></a>
+		<a class="flex border-b border-neutral-500 py-1" href="/?sort=ArtistZA">Artist Ö - A <p class="ml-2" hidden?={ !(sortMethod=="ArtistZA") }>✔️</p></a>
+		<a class="flex border-b border-neutral-500 py-1" href="/?sort=TitleAZ">Låttitel A - Ö <p class="ml-2" hidden?={ !(sortMethod=="TitleAZ") }>✔️</p></a>
+		<a class="flex border-b border-neutral-500 py-1" href="/?sort=TitleZA">Låttitel Ö - A <p class="ml-2" hidden?={ !(sortMethod=="TitleZA") }>✔️</p></a>
+		<a class="flex border-b border-neutral-500 py-1" href="/?sort=TagAZ">Kategori A - Ö <p class="ml-2" hidden?={ !(sortMethod=="TagAZ") }>✔️</p></a>
+		<a class="flex py-1" href="/?sort=TagZA">Kategori Ö - A<p class="ml-2" hidden?={ !(sortMethod=="TagZA") }>✔️</p></a>
+	</div>
+}
