@@ -6,11 +6,13 @@ import (
 	"github.com/jfkgustav/direq/model"
 	"log"
 	"os"
+	"slices"
 	"strings"
 	"time"
 )
 
 var Songs []model.Song
+var Tags []string
 
 func ReadRepertoireCSV() []model.Song {
 	file, err := os.Open("repertoire.csv")
@@ -41,6 +43,16 @@ func ReadRepertoireCSV() []model.Song {
 	}
 
 	return Songs
+}
+
+func CreateTags() {
+	for _, song := range Songs {
+		for _, tag := range song.Tags {
+			if !slices.Contains(Tags, tag) {
+				Tags = append(Tags, tag)
+			}
+		}
+	}
 }
 
 var SongRequests map[int]model.SongRequest
@@ -82,9 +94,21 @@ func ReadRequests() []model.SongRequest {
 	return songs
 }
 
-func FilterSongs() []model.Song {
-
-	return []model.Song{}
+func FilterSongs(tags []string, decade int) []model.Song {
+	var filtered_songs []model.Song
+	copy(filtered_songs, Songs)
+	for _, song := range Songs {
+		for _, tag := range song.Tags {
+			if len(tags) == 0 || slices.Contains(tags, tag) {
+				if decade == 0 || (song.Year >= decade && song.Year < decade+10) {
+					filtered_songs = append(filtered_songs, song)
+					break
+				}
+			}
+		}
+	}
+	log.Println("Filtered", len(filtered_songs), "from total", len(Songs), "songs")
+	return filtered_songs
 }
 
 var SongTags []string

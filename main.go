@@ -12,7 +12,8 @@ import (
 )
 
 func main() {
-	songs := handler.ReadRepertoireCSV()
+	handler.ReadRepertoireCSV()
+	handler.CreateTags()
 	handler.SongRequests = make(map[int]model.SongRequest)
 
 	http.HandleFunc("/mv", func(w http.ResponseWriter, r *http.Request) {
@@ -39,7 +40,8 @@ func main() {
 			showFilter = true
 		}
 		// låtar = filter_funktion(filter_struct)
-		audience.Index(songs, tags, decade, showFilter).Render(r.Context(), w)
+		filtered_songs := handler.FilterSongs(tags, decade)
+		audience.Index(filtered_songs, tags, decade, showFilter).Render(r.Context(), w)
 	})
 
 	http.HandleFunc("/request-song", func(w http.ResponseWriter, r *http.Request) {

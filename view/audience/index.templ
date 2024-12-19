@@ -1,23 +1,23 @@
 package audience
 
 import (
+	"github.com/jfkgustav/direq/handler"
 	"github.com/jfkgustav/direq/model"
 	"github.com/jfkgustav/direq/view"
 	"slices"
 	"strconv"
 )
 
-templ Index(songs []model.Song, tags []string, decade int, showFilter bool) {
-	{{songs = getSongsFromDecade(songs, decade)
-decadeFilter := 0
-if decade != 0 {
-	decadeFilter = 1
-}
-var shownSongs []string
-isHidden := "hidden"
-if showFilter {
-	isHidden = ""
-}
+templ Index(filtered_songs []model.Song, tags []string, decade int, showFilter bool) {
+	{{
+		decadeFilter := 0
+		if decade != 0 {
+			decadeFilter = 1
+		}
+		isHidden := "hidden"
+		if showFilter {
+			isHidden = ""
+		}
 	}}
 	@view.Layout() {
 		<div class="container px-2 flex flex-col space-y-2 lg:w-1/2 text-neutral-100">
@@ -32,22 +32,18 @@ if showFilter {
 				<div class="p-2 bg-neutral-200 rounded-md text-black">Sortera</div>
 			</div>
 			<div id="filter" class={ isHidden + " bg-neutral-800 container p-4" }>
-				@filter(getTags(songs), tags)
+				@filter(handler.Tags, tags)
 			</div>
-			<p class="px-4 !mt-2">{ strconv.Itoa(len(songs)) } låtar</p>
-			for _, song := range songs {
-				for _, tag := range song.Tags {
-					if !slices.Contains(shownSongs, song.Title) && (len(tags) == 0 || slices.Contains(tags, tag)) {
-						{{	shownSongs = append(shownSongs, song.Title)
-	href_address := "/request-song?song_id=" + strconv.Itoa(song.ID)
-						}}
-						<div class="flex flex-col p-2 rounded-md container bg-neutral-800 text-sm">
-							<a href={ templ.URL(href_address) }>
-								@SongCard(song)
-							</a>
-						</div>
-					}
-				}
+			<p class="px-4 !mt-2">{ strconv.Itoa(len(filtered_songs)) } låtar</p>
+			for _, song := range filtered_songs {
+				{{
+				href_address := "/request-song?song_id=" + strconv.Itoa(song.ID)
+				}}
+				<div class="flex flex-col p-2 rounded-md container bg-neutral-800 text-sm">
+					<a href={ templ.URL(href_address) }>
+						@SongCard(song)
+					</a>
+				</div>
 			}
 		</div>
 	}
@@ -60,16 +56,8 @@ if showFilter {
   </script>
 }
 
-func getTags(songs []model.Song) []string {
-	var tags []string
-	for _, song := range songs {
-		for _, tag := range song.Tags {
-			if !slices.Contains(tags, tag) {
-				tags = append(tags, tag)
-			}
-		}
-	}
-	return tags
+func getTags() []string {
+	return handler.Tags
 }
 
 templ filter(tags []string, checkedTags []string) {
@@ -126,16 +114,3 @@ templ decade() {
 	</div>
 }
 
-func getSongsFromDecade(songs []model.Song, decade int) []model.Song {
-	if decade == 0 {
-		return songs
-	}
-	var result []model.Song
-	yearMax := decade + 10
-	for _, song := range songs {
-		if song.Year >= decade && song.Year < yearMax {
-			result = append(result, song)
-		}
-	}
-	return result
-}
