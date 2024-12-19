@@ -72,36 +72,42 @@ func getTags(songs []model.Song) []string {
 	return tags
 }
 
-func getSongsFromDecade(songs []model.Song, decade int) []model.Song {
-	if decade == 0 {
-		return songs
-	}
-	var result []model.Song
-	yearMax := decade + 10
-	for _, song := range songs {
-		if song.Year >= decade && song.Year < yearMax {
-			result = append(result, song)
-		}
-	}
-	return result
-}
-
 templ filter(tags []string, checkedTags []string) {
 	<form action="/" class="flex flex-col space-y-3">
 		@decade()
-		<div class="flex flex-wrap container justify-between space-y-2">
+		<div class="flex flex-wrap container justify-between ">
 			for _, tag := range tags {
-				<div class="w-1/3 lg:w-1/6 self-center">
-					<input checked?={ slices.Contains(checkedTags, tag) } type="checkbox" id={ tag } name="tags" value={ tag }/>
-					<label for={ tag }>{ tag } </label>
+				<div class="w-1/3 lg:w-1/6 self-center mt-2">
+					@tagField(slices.Contains(checkedTags, tag), tag)
 				</div>
 			}
 		</div>
 		<div class="flex justify-between">
-			<input type="submit" value="Filtrera" class="p-2 bg-neutral-200 text-neutral-900 rounded-sm"/>
+			<input type="submit" value="Filtrera" class="p-2 bg-neutral-300 text-neutral-900 rounded-sm"/>
 			<a href="/?clear=clear" class="p-2 text-red-400 rounded-sm">Rensa filter </a>
 		</div>
 	</form>
+}
+
+templ tagField(checked bool, tagName string) {
+	<div class="tagDiv flex space-x-1 w-3/4 rounded-md bg-neutral-200 text-neutral-900 py-1 px-2">
+		<input class="tags" hidden checked?={ checked } type="checkbox" id={ tagName } name="tags" value={ tagName }/>
+		<label for={ tagName }>{ tagName } </label>
+		<p class="removeX hidden">X</p>
+	</div>
+	<script> 
+		const tagObjects = document.querySelectorAll('.tags')
+		const	tagDiv = document.querySelectorAll('.tagDiv')
+		const removeX = document.querySelectorAll('.removeX')
+		tagObjects.forEach((tag, index) => {
+			tag.addEventListener('change', () => {
+				tagDiv[index].classList.toggle('!bg-neutral-400');
+				tagDiv[index].classList.toggle('border-2');
+				tagDiv[index].classList.toggle('border-neutral-100');
+				removeX[index].classList.toggle('hidden');
+			});
+		});
+  </script>
 }
 
 templ decade() {
@@ -118,4 +124,18 @@ templ decade() {
 			<option value="2020">20-tal</option>
 		</select>
 	</div>
+}
+
+func getSongsFromDecade(songs []model.Song, decade int) []model.Song {
+	if decade == 0 {
+		return songs
+	}
+	var result []model.Song
+	yearMax := decade + 10
+	for _, song := range songs {
+		if song.Year >= decade && song.Year < yearMax {
+			result = append(result, song)
+		}
+	}
+	return result
 }
