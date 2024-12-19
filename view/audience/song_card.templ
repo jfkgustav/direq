@@ -8,7 +8,7 @@ import (
 // Ska möjligtvis allt (Artist, år, taggar) vara länkar till att få mer av samma?
 templ SongCard(song model.Song) {
 	<div id="song-card-top" class="flex justify-between">
-		<div class="font-bold !text-base">{ song.Song }</div>
+		<div class="font-bold !text-base">{ song.Title }</div>
 		<div>{ strconv.Itoa(song.Year) } </div>
 	</div>
 	<div id="song-card-bottom" class="flex justify-between">
