@@ -9,13 +9,14 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
+	"github.com/jfkgustav/direq/handler"
 	"github.com/jfkgustav/direq/model"
 	"github.com/jfkgustav/direq/view"
 	"slices"
 	"strconv"
 )
 
-func Index(songs []model.Song, tags []string, decade int, showFilter bool) templ.Component {
+func Index(filtered_songs []model.Song, tags []string, decade int, showFilter bool) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -36,12 +37,11 @@ func Index(songs []model.Song, tags []string, decade int, showFilter bool) templ
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		songs = getSongsFromDecade(songs, decade)
+
 		decadeFilter := 0
 		if decade != 0 {
 			decadeFilter = 1
 		}
-		var shownSongs []string
 		isHidden := "hidden"
 		if showFilter {
 			isHidden = ""
@@ -97,7 +97,7 @@ func Index(songs []model.Song, tags []string, decade int, showFilter bool) templ
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = filter(getTags(songs), tags).Render(ctx, templ_7745c5c3_Buffer)
+			templ_7745c5c3_Err = filter(handler.Tags, tags).Render(ctx, templ_7745c5c3_Buffer)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -106,9 +106,9 @@ func Index(songs []model.Song, tags []string, decade int, showFilter bool) templ
 				return templ_7745c5c3_Err
 			}
 			var templ_7745c5c3_Var6 string
-			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(len(songs)))
+			templ_7745c5c3_Var6, templ_7745c5c3_Err = templ.JoinStringErrs(strconv.Itoa(len(filtered_songs)))
 			if templ_7745c5c3_Err != nil {
-				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 37, Col: 51}
+				return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 37, Col: 60}
 			}
 			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var6))
 			if templ_7745c5c3_Err != nil {
@@ -118,33 +118,29 @@ func Index(songs []model.Song, tags []string, decade int, showFilter bool) templ
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			for _, song := range songs {
-				for _, tag := range song.Tags {
-					if !slices.Contains(shownSongs, song.Song) && (len(tags) == 0 || slices.Contains(tags, tag)) {
-						shownSongs = append(shownSongs, song.Song)
-						href_address := "/request-song?song_id=" + strconv.Itoa(song.ID)
-						templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 7)
-						if templ_7745c5c3_Err != nil {
-							return templ_7745c5c3_Err
-						}
-						var templ_7745c5c3_Var7 templ.SafeURL = templ.URL(href_address)
-						_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var7)))
-						if templ_7745c5c3_Err != nil {
-							return templ_7745c5c3_Err
-						}
-						templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 8)
-						if templ_7745c5c3_Err != nil {
-							return templ_7745c5c3_Err
-						}
-						templ_7745c5c3_Err = SongCard(song).Render(ctx, templ_7745c5c3_Buffer)
-						if templ_7745c5c3_Err != nil {
-							return templ_7745c5c3_Err
-						}
-						templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 9)
-						if templ_7745c5c3_Err != nil {
-							return templ_7745c5c3_Err
-						}
-					}
+			for _, song := range filtered_songs {
+
+				href_address := "/request-song?song_id=" + strconv.Itoa(song.ID)
+				templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 7)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				var templ_7745c5c3_Var7 templ.SafeURL = templ.URL(href_address)
+				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(string(templ_7745c5c3_Var7)))
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 8)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = SongCard(song).Render(ctx, templ_7745c5c3_Buffer)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
+				}
+				templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 9)
+				if templ_7745c5c3_Err != nil {
+					return templ_7745c5c3_Err
 				}
 			}
 			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 10)
@@ -165,16 +161,8 @@ func Index(songs []model.Song, tags []string, decade int, showFilter bool) templ
 	})
 }
 
-func getTags(songs []model.Song) []string {
-	var tags []string
-	for _, song := range songs {
-		for _, tag := range song.Tags {
-			if !slices.Contains(tags, tag) {
-				tags = append(tags, tag)
-			}
-		}
-	}
-	return tags
+func getTags() []string {
+	return handler.Tags
 }
 
 func filter(tags []string, checkedTags []string) templ.Component {
@@ -270,7 +258,7 @@ func tagField(checked bool, tagName string) templ.Component {
 		var templ_7745c5c3_Var10 string
 		templ_7745c5c3_Var10, templ_7745c5c3_Err = templ.JoinStringErrs(tagName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 94, Col: 78}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 82, Col: 78}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var10))
 		if templ_7745c5c3_Err != nil {
@@ -283,7 +271,7 @@ func tagField(checked bool, tagName string) templ.Component {
 		var templ_7745c5c3_Var11 string
 		templ_7745c5c3_Var11, templ_7745c5c3_Err = templ.JoinStringErrs(tagName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 94, Col: 108}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 82, Col: 108}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var11))
 		if templ_7745c5c3_Err != nil {
@@ -296,7 +284,7 @@ func tagField(checked bool, tagName string) templ.Component {
 		var templ_7745c5c3_Var12 string
 		templ_7745c5c3_Var12, templ_7745c5c3_Err = templ.JoinStringErrs(tagName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 95, Col: 22}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 83, Col: 22}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var12))
 		if templ_7745c5c3_Err != nil {
@@ -309,7 +297,7 @@ func tagField(checked bool, tagName string) templ.Component {
 		var templ_7745c5c3_Var13 string
 		templ_7745c5c3_Var13, templ_7745c5c3_Err = templ.JoinStringErrs(tagName)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 95, Col: 34}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `view/audience/index.templ`, Line: 83, Col: 34}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var13))
 		if templ_7745c5c3_Err != nil {
@@ -350,20 +338,6 @@ func decade() templ.Component {
 		}
 		return templ_7745c5c3_Err
 	})
-}
-
-func getSongsFromDecade(songs []model.Song, decade int) []model.Song {
-	if decade == 0 {
-		return songs
-	}
-	var result []model.Song
-	yearMax := decade + 10
-	for _, song := range songs {
-		if song.Year >= decade && song.Year < yearMax {
-			result = append(result, song)
-		}
-	}
-	return result
 }
 
 var _ = templruntime.GeneratedTemplate

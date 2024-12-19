@@ -640,6 +640,10 @@ video {
   justify-content: space-between;
 }
 
+.gap-y-4 {
+  row-gap: 1rem;
+}
+
 .gap-y-8 {
   row-gap: 2rem;
 }
