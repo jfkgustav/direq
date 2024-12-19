@@ -3,6 +3,7 @@ package musician
 import (
 	"github.com/jfkgustav/direq/model"
 	"strconv"
+	"time"
 )
 
 templ RequestedSongCard(song model.SongRequest, sort bool) {
@@ -16,7 +17,7 @@ templ RequestedSongCard(song model.SongRequest, sort bool) {
 			if sort {
 				<p>{ strconv.Itoa(song.NumberOfVotes ) } 🗳 </p>
 			} else {
-				<p>{ strconv.Itoa(song.TimeInQueue) } min 🕒 </p>
+				<p>{ strconv.Itoa(int(time.Since(song.Created).Minutes())) } min 🕒 </p>
 			}
 		</div>
 	</div>

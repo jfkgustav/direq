@@ -8,23 +8,23 @@ import (
 
 templ Index(requestedSongs []model.SongRequest, pop bool) {
 	{{
-		button_base := "w-1/4 text-center outline-indigo-400 py-4 rounded-md text-black"
-		var queue_button string
-		var pop_button string
-		if pop {
-			sort.Slice(requestedSongs, func(i, j int) bool {
-				return requestedSongs[i].NumberOfVotes > requestedSongs[j].NumberOfVotes
-			})
-			pop_button = "outline " + "bg-neutral-200 " + button_base
-			queue_button = "bg-neutral-500 " + button_base
+			button_base := "w-1/4 text-center outline-indigo-400 py-4 rounded-md text-black"
+			var queue_button string
+			var pop_button string
+			if pop {
+				sort.Slice(requestedSongs, func(i, j int) bool {
+					return requestedSongs[i].NumberOfVotes > requestedSongs[j].NumberOfVotes
+				})
+				pop_button = "outline " + "bg-neutral-200 " + button_base
+				queue_button = "bg-neutral-500 " + button_base
 
-		} else {
-			sort.Slice(requestedSongs, func(i, j int) bool {
-				return requestedSongs[i].TimeInQueue > requestedSongs[j].TimeInQueue
-			})
-			queue_button = "outline " + "bg-neutral-200 " + button_base
-			pop_button = "bg-neutral-500 " + button_base
-		}
+			} else {
+				sort.Slice(requestedSongs, func(i, j int) bool {
+					return requestedSongs[i].Created.Before(requestedSongs[j].Created)
+				})
+				queue_button = "outline " + "bg-neutral-200 " + button_base
+				pop_button = "bg-neutral-500 " + button_base
+			}
 	}}
 	@view.Layout() {
 		<div class="container px-2 flex flex-col space-y-4 lg:w-1/2 text-xl text-neutral-100">

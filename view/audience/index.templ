@@ -39,7 +39,7 @@ if showFilter {
 				for _, tag := range song.Tags {
 					if !slices.Contains(shownSongs, song.Song) && (len(tags) == 0 || slices.Contains(tags, tag)) {
 						{{	shownSongs = append(shownSongs, song.Song)
-	href_address := "/request-song?song_id=" + song.Song
+	href_address := "/request-song?song_id=" + strconv.Itoa(song.ID)
 						}}
 						<div class="flex flex-col p-2 rounded-md container bg-neutral-800 text-sm">
 							<a href={ templ.URL(href_address) }>
