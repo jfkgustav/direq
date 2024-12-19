@@ -20,7 +20,7 @@ templ Index(requestedSongs []model.SongRequest, pop bool) {
 
 		} else {
 			sort.Slice(requestedSongs, func(i, j int) bool {
-				return requestedSongs[i].TimeInQueue > requestedSongs[j].TimeInQueue
+				return requestedSongs[i].Created.Before(requestedSongs[j].Created)
 			})
 			queue_button = "outline " + "bg-neutral-200 " + button_base
 			pop_button = "bg-neutral-500 " + button_base

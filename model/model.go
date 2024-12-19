@@ -1,5 +1,9 @@
 package model
 
+import (
+	"time"
+)
+
 // Song model as it is in base CSV
 type SongPre struct {
 	Status string `csv:"status"`
@@ -10,15 +14,16 @@ type SongPre struct {
 }
 
 type Song struct {
-	Status string 
+	ID     int
+	Status string
 	Artist string
 	Song   string
-	Year   int  
+	Year   int
 	Tags   []string
 }
 
 type SongRequest struct {
-	Song 					Song
-	TimeInQueue 	int
+	Song          Song
+	Created       time.Time
 	NumberOfVotes int
 }

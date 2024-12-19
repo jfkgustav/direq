@@ -1,2 +1,0 @@
-<!doctype html><html lang=\"en\"><head><title>direq </title><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><link rel=\"stylesheet\" href=\"/public/app.css\"></head><body class=\"bg-neutral-900\"><main class=\"flex justify-center\">
-</main></body></html>
