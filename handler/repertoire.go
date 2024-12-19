@@ -33,7 +33,7 @@ func ReadRepertoireCSV() []model.Song {
 		//finally
 		var song model.Song
 		song.ID = id
-		song.Song = songPre.Song
+		song.Title = songPre.Song
 		song.Artist = songPre.Artist
 		song.Year = songPre.Year
 		song.Tags = strings.Split(songPre.Tags, ", ")
@@ -44,6 +44,10 @@ func ReadRepertoireCSV() []model.Song {
 }
 
 var SongRequests map[int]model.SongRequest
+
+func RemoveRequest(song_id int) {
+	delete(SongRequests, song_id)
+}
 
 func AddRequest(song_id int) {
 	var song model.Song
@@ -77,3 +81,10 @@ func ReadRequests() []model.SongRequest {
 	}
 	return songs
 }
+
+func FilterSongs() []model.Song {
+
+	return []model.Song{}
+}
+
+var SongTags []string

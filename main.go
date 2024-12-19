@@ -52,7 +52,7 @@ func main() {
 			return
 		}
 		handler.AddRequest(song_id)
-		http.Redirect(w, r, "/", 200)
+		http.Redirect(w, r, "/", http.StatusPermanentRedirect)
 	})
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))

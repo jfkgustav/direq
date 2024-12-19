@@ -17,7 +17,7 @@ type Song struct {
 	ID     int
 	Status string
 	Artist string
-	Song   string
+	Title  string
 	Year   int
 	Tags   []string
 }

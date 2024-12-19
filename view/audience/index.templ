@@ -37,8 +37,8 @@ if showFilter {
 			<p class="px-4 !mt-2">{ strconv.Itoa(len(songs)) } låtar</p>
 			for _, song := range songs {
 				for _, tag := range song.Tags {
-					if !slices.Contains(shownSongs, song.Song) && (len(tags) == 0 || slices.Contains(tags, tag)) {
-						{{	shownSongs = append(shownSongs, song.Song)
+					if !slices.Contains(shownSongs, song.Title) && (len(tags) == 0 || slices.Contains(tags, tag)) {
+						{{	shownSongs = append(shownSongs, song.Title)
 	href_address := "/request-song?song_id=" + strconv.Itoa(song.ID)
 						}}
 						<div class="flex flex-col p-2 rounded-md container bg-neutral-800 text-sm">

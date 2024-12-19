@@ -8,7 +8,7 @@ import (
 
 templ RequestedSongCard(song model.SongRequest, sort bool) {
 	<div id="song-card-top" class="flex justify-between">
-		<div class="text-3xl text-bold">{ song.Song.Song }</div>
+		<div class="text-3xl text-bold">{ song.Song.Title }</div>
 		<div>{ strconv.Itoa(song.Song.Year) } </div>
 	</div>
 	<div id="song-card-bottom" class="flex justify-between">
