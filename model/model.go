@@ -20,10 +20,26 @@ type Song struct {
 	Title  string
 	Year   int
 	Tags   []string
+	// totaltVotes int
 }
+
+/*
+type Vote struct {
+	datetime   time.Time
+	session_id int
+}
+*/
 
 type SongRequest struct {
 	Song          Song // kan bytas ut mot ID
 	Created       time.Time
 	NumberOfVotes int
+}
+
+type Session struct {
+	ID             int
+	Name           string
+	SongsIDs       []int
+	Date           time.Time
+	PlayedSongsIDs []int
 }
