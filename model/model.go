@@ -23,7 +23,7 @@ type Song struct {
 }
 
 type SongRequest struct {
-	Song          Song
+	Song          Song // kan bytas ut mot ID
 	Created       time.Time
 	NumberOfVotes int
 }

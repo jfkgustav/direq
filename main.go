@@ -47,7 +47,8 @@ func main() {
 		var song_id int
 		song_id, err := strconv.Atoi(song_id_s)
 		if err != nil {
-			w.Write([]byte(`Incorrect request`))
+			w.WriteHeader(http.StatusBadRequest)
+			w.Write([]byte(`Invalid request, should be number`))
 			return
 		}
 		handler.AddRequest(song_id)
