@@ -59,7 +59,6 @@ func main() {
 		tags := r.URL.Query()["tags"]
 		decadeQuery := r.URL.Query().Get("decade")
 		clear := r.URL.Query().Get("clear")
-		fmt.Println(clear)
 		var decade int
 		decade, err := strconv.Atoi(decadeQuery)
 		if err != nil || decadeQuery == "decade" {

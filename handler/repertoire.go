@@ -112,7 +112,7 @@ func FilterSongs(tags []string, decade int) []model.Song {
 			}
 		}
 	}
-	log.Println("Filtered", len(filtered_songs), "from total", len(Songs), "songs")
+	//	log.Println("Filtered", len(filtered_songs), "from total", len(Songs), "songs")
 	return filtered_songs
 }
 
