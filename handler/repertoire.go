@@ -15,6 +15,7 @@ var Songs []model.Song
 var Tags []string
 
 func ReadRepertoireCSV() []model.Song {
+	var songs []model.Song
 	file, err := os.Open("repertoire.csv")
 	if err != nil {
 		log.Fatal("Error while reading the file", err)
@@ -39,10 +40,11 @@ func ReadRepertoireCSV() []model.Song {
 		song.Artist = songPre.Artist
 		song.Year = songPre.Year
 		song.Tags = strings.Split(songPre.Tags, ", ")
-		Songs = append(Songs, song)
+		songs = append(songs, song)
 	}
+	log.Printf("Loaded %d songs from .csv-file\n", len(songs))
 
-	return Songs
+	return songs
 }
 
 func CreateTags() {
@@ -94,8 +96,9 @@ func ReadRequests() []model.SongRequest {
 	return songs
 }
 
-// Bara gör saker på autopilot nu, och det här kanske är helt onödigt...
+// Den här används för att bestämma låtar i en session
 func SetSongs(songs []model.Song) {
+	log.Printf("Updated session song list (%d songs)\n", len(songs))
 	Songs = songs
 }
 
