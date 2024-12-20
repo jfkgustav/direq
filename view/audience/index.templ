@@ -141,7 +141,7 @@ templ decade() {
 templ sort(sortMethod string) {
 	<div class="flex flex-col text-neutral-900 space-y-2">
 		<a class="flex border-b border-neutral-500 py-1" href="/?sort=YearAsc">År stigande <p class="ml-2" hidden?={ !(sortMethod =="" || sortMethod=="YearAsc") }>✔️ </p></a>
-		<a class="flex border-b border-neutral-500 py-1" href="/?sort=YearDec">År fallade <p class="ml-2" hidden?={ !(sortMethod=="YearDec") }>✔️</p></a>
+		<a class="flex border-b border-neutral-500 py-1" href="/?sort=YearDes">År fallande <p class="ml-2" hidden?={ !(sortMethod=="YearDes") }>✔️</p></a>
 		<a class="flex border-b border-neutral-500 py-1" href="/?sort=ArtistAZ">Artist A - Ö <p class="ml-2" hidden?={ !(sortMethod=="ArtistAZ") }>✔️</p></a>
 		<a class="flex border-b border-neutral-500 py-1" href="/?sort=ArtistZA">Artist Ö - A <p class="ml-2" hidden?={ !(sortMethod=="ArtistZA") }>✔️</p></a>
 		<a class="flex border-b border-neutral-500 py-1" href="/?sort=TitleAZ">Låttitel A - Ö <p class="ml-2" hidden?={ !(sortMethod=="TitleAZ") }>✔️</p></a>

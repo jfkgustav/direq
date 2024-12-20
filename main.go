@@ -52,7 +52,9 @@ func main() {
 		sort := r.URL.Query().Get("sort")
 		// låtar = filter_funktion(filter_struct)
 		filtered_songs := handler.FilterSongs(tags, decade)
-		audience.Index(filtered_songs, tags, decade, showFilter, sort).Render(r.Context(), w)
+
+		sorted_songs := handler.SortSongs(filtered_songs, sort)
+		audience.Index(sorted_songs, tags, decade, showFilter, sort).Render(r.Context(), w)
 	})
 
 	http.HandleFunc("/request-song", func(w http.ResponseWriter, r *http.Request) {
@@ -67,9 +69,6 @@ func main() {
 		handler.AddRequest(song_id)
 		http.Redirect(w, r, "/", http.StatusPermanentRedirect)
 	})
-
-
-
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 

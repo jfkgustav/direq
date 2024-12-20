@@ -58,7 +58,7 @@ func Index(filtered_songs []model.Song, filters []string, decade int, showFilter
 				}()
 			}
 			ctx = templ.InitializeContext(ctx)
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"container px-2 flex h-full flex-col space-y-2 lg:w-1/2 text-neutral-100 !m-0\"><a href=\"/\" class=\"text-center pt-4 text-neutral-100 font-bold text-2xl text-center\">Önska låtar</a><div class=\"rounded-md container px-4 py-1 bg-neutral-100 text-neutral-900 \">Sök...  </div><div id=\"filter-sort-div\" class=\"flex w-1/2 !mt-2 \"><button id=\"filterButton\" class=\"underline px-2 rounded-t-md\">Filtrera (")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 1)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -71,7 +71,7 @@ func Index(filtered_songs []model.Song, filters []string, decade int, showFilter
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(")</button> <button id=\"sortButton\" class=\"p-2 bg-neutral-200 rounded-md text-black\">Sortera ↕️</button></div>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 2)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -80,7 +80,7 @@ func Index(filtered_songs []model.Song, filters []string, decade int, showFilter
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"filter\" class=\"")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 3)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -93,7 +93,7 @@ func Index(filtered_songs []model.Song, filters []string, decade int, showFilter
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 4)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -101,7 +101,7 @@ func Index(filtered_songs []model.Song, filters []string, decade int, showFilter
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div id=\"sort\" class=\"bg-neutral-200 hidden container !overflow-y-scroll !h-56 rounded-b-md !m-0 py-2 px-4\">")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 5)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -109,7 +109,7 @@ func Index(filtered_songs []model.Song, filters []string, decade int, showFilter
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><p class=\"px-4 !mt-2\">")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 6)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -122,14 +122,14 @@ func Index(filtered_songs []model.Song, filters []string, decade int, showFilter
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" låtar</p>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 7)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 			for _, song := range filtered_songs {
 
 				href_address := "/request-song?song_id=" + strconv.Itoa(song.ID)
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col p-2 rounded-md container bg-neutral-800 text-sm\"><a href=\"")
+				templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 8)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -138,7 +138,7 @@ func Index(filtered_songs []model.Song, filters []string, decade int, showFilter
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+				templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 9)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
@@ -146,12 +146,12 @@ func Index(filtered_songs []model.Song, filters []string, decade int, showFilter
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
-				_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</a></div>")
+				templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 10)
 				if templ_7745c5c3_Err != nil {
 					return templ_7745c5c3_Err
 				}
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<a class=\"text-neutral-100 !mt-48\" href=\"/mv\">mv</a> <a class=\"text-neutral-100\" href=\"/backstage\">backstage</a></div>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 11)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -161,7 +161,7 @@ func Index(filtered_songs []model.Song, filters []string, decade int, showFilter
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<script> \n\t\tconst filterButton = document.getElementById('filterButton');\n \t \tconst filterDiv = document.getElementById('filter');\n \t \tconst filterSortDiv = document.getElementById('filter-sort-div');\n\t\tfilterButton.addEventListener('click', () => {\n\t\t\tfilterDiv.classList.toggle('hidden');\n\t\t\tfilterButton.classList.toggle('bg-neutral-800')\n \t\t\tif (!sortDiv.classList.contains('hidden')) {\n\t\t\t\tsortDiv.classList.toggle('hidden');\n\t\t\t\tsortButton.classList.toggle('rounded-md')\n\t\t\t\tsortButton.classList.toggle('rounded-t-md')\n\t\t\t}\n\t\t});\n\t\tconst sortButton = document.getElementById('sortButton');\n \t \tconst sortDiv = document.getElementById('sort');\n \t \tconst sortSortDiv = document.getElementById('filter-sort-div');\n\t\tsortButton.addEventListener('click', () => {\n\t\t\tsortDiv.classList.toggle('hidden');\n\t\t\tsortButton.classList.toggle('rounded-md')\n\t\t\tsortButton.classList.toggle('rounded-t-md')\n \t\t\tif (!filterDiv.classList.contains('hidden')) {\n\t\t\t\tfilterDiv.classList.toggle('hidden');\n\t\t\t\tfilterButton.classList.toggle('bg-neutral-800')\n\t\t\t}\n\t\t});\n  </script>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 12)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -194,7 +194,7 @@ func filter(tags []string, checkedTags []string) templ.Component {
 			templ_7745c5c3_Var8 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<form action=\"/\" class=\"flex flex-col space-y-3\">")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 13)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -202,12 +202,12 @@ func filter(tags []string, checkedTags []string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-wrap container justify-between \">")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 14)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		for _, tag := range tags {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"w-1/3 lg:w-1/6 self-center mt-2\">")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 15)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -215,12 +215,12 @@ func filter(tags []string, checkedTags []string) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div>")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 16)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div><div class=\"flex justify-between\"><input type=\"submit\" value=\"Filtrera\" class=\"p-2 bg-neutral-300 text-neutral-900 rounded-sm\"> <a href=\"/?clear=clear\" class=\"p-2 text-red-400 rounded-sm\">Rensa filter </a></div></form>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 17)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -249,17 +249,17 @@ func tagField(checked bool, tagName string) templ.Component {
 			templ_7745c5c3_Var9 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"tagDiv flex space-x-1 w-3/4 rounded-md bg-neutral-200 text-neutral-900 py-1 px-2\"><input class=\"tags\" hidden")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 18)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if checked {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" checked")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 19)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" type=\"checkbox\" id=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 20)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -272,7 +272,7 @@ func tagField(checked bool, tagName string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" name=\"tags\" value=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 21)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -285,7 +285,7 @@ func tagField(checked bool, tagName string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"> <label for=\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 22)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -298,7 +298,7 @@ func tagField(checked bool, tagName string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\">")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 23)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -311,7 +311,7 @@ func tagField(checked bool, tagName string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</label><p class=\"removeX hidden\">X</p></div><script> \n\t\tconst tagObjects = document.querySelectorAll('.tags')\n\t\tconst\ttagDiv = document.querySelectorAll('.tagDiv')\n\t\tconst removeX = document.querySelectorAll('.removeX')\n\t\ttagObjects.forEach((tag, index) => {\n\t\t\ttag.addEventListener('change', () => {\n\t\t\t\ttagDiv[index].classList.toggle('!bg-neutral-400');\n\t\t\t\ttagDiv[index].classList.toggle('border-2');\n\t\t\t\ttagDiv[index].classList.toggle('border-neutral-100');\n\t\t\t\tremoveX[index].classList.toggle('hidden');\n\t\t\t});\n\t\t});\n  </script>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 24)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -340,7 +340,7 @@ func decade() templ.Component {
 			templ_7745c5c3_Var14 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex space-x-4 align-center\"><select name=\"decade\" id=\"decade\" class=\"text-neutral-900 p-2 rounded-sm\"><option value=\"decade\">Årtionde</option> <option value=\"1950\">50-tal</option> <option value=\"1960\">60-tal</option> <option value=\"1970\">70-tal</option> <option value=\"1980\">80-tal</option> <option value=\"1990\">90-tal</option> <option value=\"2000\">00-tal</option> <option value=\"2010\">10-tal</option> <option value=\"2020\">20-tal</option></select></div>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 25)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -369,87 +369,87 @@ func sort(sortMethod string) templ.Component {
 			templ_7745c5c3_Var15 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex flex-col text-neutral-900 space-y-2\"><a class=\"flex border-b border-neutral-500 py-1\" href=\"/?sort=YearAsc\">År stigande <p class=\"ml-2\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 26)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if !(sortMethod == "" || sortMethod == "YearAsc") {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hidden")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 27)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">✔️ </p></a> <a class=\"flex border-b border-neutral-500 py-1\" href=\"/?sort=YearDec\">År fallade <p class=\"ml-2\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 28)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		if !(sortMethod == "YearDec") {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hidden")
+		if !(sortMethod == "YearDes") {
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 29)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">✔️</p></a> <a class=\"flex border-b border-neutral-500 py-1\" href=\"/?sort=ArtistAZ\">Artist A - Ö <p class=\"ml-2\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 30)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if !(sortMethod == "ArtistAZ") {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hidden")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 31)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">✔️</p></a> <a class=\"flex border-b border-neutral-500 py-1\" href=\"/?sort=ArtistZA\">Artist Ö - A <p class=\"ml-2\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 32)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if !(sortMethod == "ArtistZA") {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hidden")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 33)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">✔️</p></a> <a class=\"flex border-b border-neutral-500 py-1\" href=\"/?sort=TitleAZ\">Låttitel A - Ö <p class=\"ml-2\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 34)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if !(sortMethod == "TitleAZ") {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hidden")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 35)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">✔️</p></a> <a class=\"flex border-b border-neutral-500 py-1\" href=\"/?sort=TitleZA\">Låttitel Ö - A <p class=\"ml-2\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 36)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if !(sortMethod == "TitleZA") {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hidden")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 37)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">✔️</p></a> <a class=\"flex border-b border-neutral-500 py-1\" href=\"/?sort=TagAZ\">Kategori A - Ö <p class=\"ml-2\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 38)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if !(sortMethod == "TagAZ") {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hidden")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 39)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">✔️</p></a> <a class=\"flex py-1\" href=\"/?sort=TagZA\">Kategori Ö - A<p class=\"ml-2\"")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 40)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		if !(sortMethod == "TagZA") {
-			_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(" hidden")
+			templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 41)
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(">✔️</p></a></div>")
+		templ_7745c5c3_Err = templ.WriteWatchModeString(templ_7745c5c3_Buffer, 42)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
