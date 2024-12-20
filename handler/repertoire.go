@@ -94,6 +94,11 @@ func ReadRequests() []model.SongRequest {
 	return songs
 }
 
+// Bara gör saker på autopilot nu, och det här kanske är helt onödigt...
+func SetSongs(songs []model.Song) {
+	Songs = songs
+}
+
 func FilterSongs(tags []string, decade int) []model.Song {
 	var filtered_songs []model.Song
 	copy(filtered_songs, Songs)

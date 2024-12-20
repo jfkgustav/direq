@@ -15,7 +15,7 @@ type dbInfo struct {
 }
 
 func NewBoltDB(filepath string) *bolt.DB {
-	log.Printf("Creating DB %s ...\n", filepath)
+	log.Printf("Opening bolt DB %s ...\n", filepath)
 	db, err := bolt.Open(filepath, 0600, nil)
 	if err != nil {
 		log.Fatal(err)
@@ -66,6 +66,26 @@ func UpdateRepertoire(db *bolt.DB, songs []model.Song) error {
 
 	})
 	return err
+}
+
+func GetSongs(db *bolt.DB) ([]model.Song, error) {
+	var songs []model.Song
+	err := db.View(func(tx *bolt.Tx) error {
+		repertoire := tx.Bucket([]byte("repertoire"))
+		c := repertoire.Cursor()
+		var song model.Song
+
+		for k, v := c.First(); k != nil; k, v = c.Next() {
+			err := json.Unmarshal(v, &song)
+			if err != nil {
+				return fmt.Errorf("get songs failed unmarhalling data %v", err)
+			}
+			songs = append(songs, song)
+		}
+
+		return nil
+	})
+	return songs, err
 }
 
 // itob returns an 8-byte big endian representation of v.

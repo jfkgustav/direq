@@ -20,10 +20,21 @@ func main() {
 	defer db.Close()
 	songs := handler.ReadRepertoireCSV()
 	err := store.UpdateRepertoire(db, songs)
+
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// autopilothjärnan kickade in här!
+
+	songs, err = store.GetSongs(db)
+	if err != nil {
+		log.Fatal(err)
+	}
+	handler.SetSongs(songs)
+
 	handler.CreateTags()
+
 	handler.SongRequests = make(map[int]model.SongRequest)
 
 	http.HandleFunc("/mv", func(w http.ResponseWriter, r *http.Request) {
