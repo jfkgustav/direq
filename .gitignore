@@ -2,3 +2,8 @@ node_modules/
 *.txt
 *_templ.go
 *.swp
+
+# genereras av bolt
+*.db 
+# genereras av air
+tmp/ 

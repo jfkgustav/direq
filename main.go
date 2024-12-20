@@ -2,11 +2,13 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
 	"github.com/jfkgustav/direq/handler"
 	"github.com/jfkgustav/direq/model"
+	"github.com/jfkgustav/direq/store"
 	"github.com/jfkgustav/direq/view/audience"
 	"github.com/jfkgustav/direq/view/backstage"
 	"github.com/jfkgustav/direq/view/backstage/session"
@@ -14,7 +16,13 @@ import (
 )
 
 func main() {
-	handler.ReadRepertoireCSV()
+	db := store.NewBoltDB("./direq.db")
+	defer db.Close()
+	songs := handler.ReadRepertoireCSV()
+	err := store.UpdateRepertoire(db, songs)
+	if err != nil {
+		log.Fatal(err)
+	}
 	handler.CreateTags()
 	handler.SongRequests = make(map[int]model.SongRequest)
 
